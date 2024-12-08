@@ -9,6 +9,10 @@ const app = express();
 // app.use("/hello",(req,res) =>{
 //     res.send("Hello hello  hello");
 // })
+app.use("/user",(req,res) =>{
+    res.send("HAHAHAHA");
+})
+
 app.get("/user",(req,res)=>{
     res.send({firstname: "vaishnavi" , lastname : "pratale"});
 })
@@ -23,9 +27,7 @@ app.delete("/user",(req,res)=>{
 app.use("/test",(req,res) =>{
     res.send("Hello from the server!!");
 });
-app.use("/",(req,res) =>{
-    res.send("vaishnavi pratale!");
-})
+
 
 
 app.listen(3000,()=>{
