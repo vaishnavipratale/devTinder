@@ -9,26 +9,10 @@ const app = express();
 // app.use("/hello",(req,res) =>{
 //     res.send("Hello hello  hello");
 // })
-app.use("/user",(req,res) =>{
-    res.send("HAHAHAHA");
-})
-
-app.get("/user",(req,res)=>{
+app.get("/user/:userid/:name/:password",(req,res)=>{
+    console.log(req.params);
     res.send({firstname: "vaishnavi" , lastname : "pratale"});
-})
-
-app.post("/user",(req,res)=>{
-    res.send("data succefully saved to the database");
-    });
-
-app.delete("/user",(req,res)=>{
-    res.send("deleted succesfully");
-    })    
-app.use("/test",(req,res) =>{
-    res.send("Hello from the server!!");
 });
-
-
 
 app.listen(3000,()=>{
 console.log("server is successfully listening on port 3000");
