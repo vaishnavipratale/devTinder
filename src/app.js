@@ -43,23 +43,18 @@ const app = express();
 
 
 //Middleware example**********************************************************************
+const {adminAuth, userAuth} = require("./middlewares/auth");
+// //Handle Auth middleware for all GET, POST,.....request
+app.use("/admin", adminAuth);
 
-//Handle Auth middleware for all GET, POST,.....request
-app.use("/admin", (req, res, next)=>{
-    console.log("admin auth is getting checked!!");
-    const token="xyz";
-    const isAdminAuthorized = token==="xyz";
-    if(!isAdminAuthorized){
-        res.status(401).send("Unauthorized request" );
-    }else{
-        next();
-    }
-});
-app.get("/admin/getAllData", (req, res,)=>{
+app.get("/user", userAuth, (req, res)=>{
     res.send("User data sent");
 });
+app.get("/admin/getAllData", (req, res)=>{
+    res.send("All data sent");
+});
 app.get("/admin/getDeleteData", (req, res)=>{
-    res.send("User data deleted");
+    res.send("deleted a user");
 });
 app.listen(3000,()=>{
 console.log("server is successfully listening on port 3000");
