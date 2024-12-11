@@ -1,61 +1,32 @@
 const express = require('express');
+const connectDB=require("./config/database");
+const User = require("./models/user");
 
 const app = express();
 
-// app.use("/hello/2",(req,res) =>{
-//     res.send("Abara ka dabra");
-// })
-
-// app.use("/hello",(req,res) =>{
-//     res.send("Hello hello  hello");
-// })
-
-//Dynamic routing
-// app.get("/user/:userid/:name/:password",(req,res)=>{
-//     console.log(req.params);
-//     res.send({firstname: "vaishnavi" , lastname : "pratale"});
-// });
-
-//Multiple Route Handlers***************************************************
-// app.use("/user",(req,res, next)=>{
-//     console.log("Handlling the route user 1!!");
-   
-//     next();
-// },
-// (req,res,next)=>{
-//     console.log("Handlling the route user 2!!");
+app.post("/signup", async (req,res)=>{
+    //creating a new instance of the user model
     
-//     next();
-// },
-// (req,res,next)=>{
-//     console.log("Handlling the route user 3!!");
-//     next();
-// },
-// (req,res,next)=>{
-//     console.log("Handlling the route user 4!!");
-//    next();
-// },
-// (req,res,next)=>{
-//     console.log("Handlling the route user 5!!");
-//     res.send("5th response!!");
-// }
-// );
+    const user = new User({
+        firstName: "virat",
+        lastName: "kohli",
+        email: "virat@gmail.com",
+        password: "virat@123"
+    });
+    try{
+await user.save();
+res.send("User added successfully");
+}catch(err){
+    res.status(400).send("error saving the user:"+ err.meassage);
+}
+});
 
-
-//Middleware example**********************************************************************
-const {adminAuth, userAuth} = require("./middlewares/auth");
-// //Handle Auth middleware for all GET, POST,.....request
-app.use("/admin", adminAuth);
-
-app.get("/user", userAuth, (req, res)=>{
-    res.send("User data sent");
-});
-app.get("/admin/getAllData", (req, res)=>{
-    res.send("All data sent");
-});
-app.get("/admin/getDeleteData", (req, res)=>{
-    res.send("deleted a user");
-});
-app.listen(3000,()=>{
-console.log("server is successfully listening on port 3000");
-});
+connectDB().then(()=>{
+    console.log("Database connection established");
+    app.listen(7777,()=>{
+        console.log("server is successfully listening on port 7777");
+        });
+})
+.catch((err)=>{
+    console.error("Database cannot be connected");
+})
