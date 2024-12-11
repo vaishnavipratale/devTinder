@@ -4,15 +4,21 @@ const User = require("./models/user");
 
 const app = express();
 
+//middleware
+app.use(express.json());
+
 app.post("/signup", async (req,res)=>{
     //creating a new instance of the user model
-    
-    const user = new User({
-        firstName: "virat",
-        lastName: "kohli",
-        email: "virat@gmail.com",
-        password: "virat@123"
-    });
+
+    const user= new User(req.body);
+
+    // const user = new User({
+    //     firstName: "virat",
+    //     lastName: "kohli",
+    //     email: "virat@gmail.com",
+    //     password: "virat@123"
+    // });
+
     try{
 await user.save();
 res.send("User added successfully");
