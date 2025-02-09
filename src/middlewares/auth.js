@@ -6,7 +6,7 @@
        const cookies = req.cookies;
        const {token } = cookies;
        if(!token){
-          throw new Error("Invalid Token");
+        return res.status(401).send("Please Login !!");
        }
        //validate my token
        const decodedObj = await jwt.verify(token, "DEV@Tinder$790");
