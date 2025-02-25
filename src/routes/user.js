@@ -93,4 +93,4 @@ userRouter.get("/feed", userAuth, async(req, res)=>{
     res.status(400).send({message : err.message});
   }
 });
-module.exports = { userRouter};
+module.exports ={ userRouter};
