@@ -32,7 +32,7 @@ const initializeSocket = (server) => {
           const roomId = getSecretRoomId(userId, targetUserId);
           console.log(firstName + " " + text);
 
-          // TODO: Check if userId & targetUserId are friends
+          
 
           let chat = await Chat.findOne({
             participants: { $all: [userId, targetUserId] },
